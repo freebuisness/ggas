@@ -45,7 +45,7 @@
     font-weight: 600;
   }
   .hero {
-    background: url("images/hero.jpg") center/cover no-repeat;
+    background: url("images/hero.png") center/cover no-repeat;
     height: 500px;
     display: flex;
     align-items: center;
