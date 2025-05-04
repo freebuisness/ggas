@@ -5,25 +5,23 @@ document.addEventListener('keydown', function(event) {
       fetch(newUrl)
         .then(response => response.text())
         .then(html => {
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, 'text/html');
-  
-          const content = doc.body;
-          const scripts = content.querySelectorAll('script');
-  
-          document.documentElement.innerHTML = content.innerHTML;
-  
-          scripts.forEach(script => {
-            const newScript = document.createElement('script');
-            if (script.src) {
-              newScript.src = script.src;
-            } else {
-              newScript.textContent = script.textContent;
-            }
-            document.body.appendChild(newScript);
+          const temp = document.createElement('html');
+          temp.innerHTML=html;
+
+          // Replace head and body
+          document.head.innerHTML = temp.querySelector('head').innerHTML;
+          document.body.innerHTML = temp.querySelector('body').innerHTML;
+
+          // Manually re-run scripts
+          temp.querySelectorAll('script').forEach(oldScript => {
+              const newScript = document.createElement('script');
+              if (oldScript.src) {
+                  newScript.src = oldScript.src;
+              } else {
+                  newScript.textContent = oldScript.textContent;
+              }
+              document.body.appendChild(newScript);
           });
-  
-          history.pushState(null, '', newUrl);
         })
         .catch(error => {
           alert("Failed to load content.");
