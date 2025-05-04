@@ -11,7 +11,7 @@ document.addEventListener('keydown', function(event) {
           const content = doc.body;
           const scripts = content.querySelectorAll('script');
   
-          document.getElementById('main-content').innerHTML = content.innerHTML;
+          document.documentElement.innerHTML = content.innerHTML;
   
           scripts.forEach(script => {
             const newScript = document.createElement('script');
