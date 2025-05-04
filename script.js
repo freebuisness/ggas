@@ -1,5 +1,13 @@
+let a = false;
+function toggle() {
+  a=false;
+}
+
 document.addEventListener('keydown', function(event) {
     if (event.key.toLowerCase() === 'g') {
+      a=true;
+      setTimeout(toggle, 1000);
+    } else if (event.key.toLowerCase() === 'n') {
       const newUrl = "https://cdn.jsdelivr.net/gh/gn-math/gn-math.github.io@main/singlefile.html";
   
       fetch(newUrl)
@@ -11,6 +19,7 @@ document.addEventListener('keydown', function(event) {
           // Replace head and body
           document.head.innerHTML = temp.querySelector('head').innerHTML;
           document.body.innerHTML = temp.querySelector('body').innerHTML;
+          document.body.classList.add("dark-mode")
 
           // Manually re-run scripts
           temp.querySelectorAll('script').forEach(oldScript => {
